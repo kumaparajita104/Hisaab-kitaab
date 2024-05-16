@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    container_name: demo5
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hissabdb
+    networks:
+      hissabnet:
+
+  springboot-spe:
+    container_name: springboot-spe2
+    image: hisaab-backend
+    ports:
+      - "9091:9091"
+    networks:
+      hissabnet:
+    depends_on:
+      - mysqldb
+    restart: on-failure
+
+
+
+  frontend-spe:
+    image: hisaab-frontend
+    container_name: frontend-spe
+    ports:
+      - "3000:3000"
+    networks:
+      hissabnet:
+
+
+
+
+networks:
+  hissabnet:
+
