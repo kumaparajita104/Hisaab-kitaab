@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight{%-5level: }%msg%n%throwable</Property>
+        <Property name="APP_LOG_ROOT">./Desktop/loge1/</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+        <RollingFile name="fileLogs"
+                     fileName="${APP_LOG_ROOT}"
+                     filePattern="${APP_LOG_ROOT}/SpringBootApp/application-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%throwable" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="1" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name= "org.springframework.boot" level="OFF" />
+        <Logger name= "org.springframework.context" level="OFF" />
+        <Logger name= "org.hibernate" level="OFF" />
+        <Logger name= "SQL dialect" level="OFF" />
+        <Logger name= "com.zaxxer" level="OFF" />
+        <Logger name= "org" level="OFF" />
+        <Logger name= "com.example.hissabkitaab.HissabKitaabApplication" level="OFF" />
+
+        <Logger name="com.log.SpringbootLogger" additivity="false">
+            <AppenderRef ref="fileLogs" />
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="fileLogs" />
+        </Root>
+    </Loggers>
+</Configuration>
